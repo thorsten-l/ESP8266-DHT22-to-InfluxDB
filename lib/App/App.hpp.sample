@@ -1,0 +1,14 @@
+#ifndef __APP_HPP__
+#define __APP_HPP__
+
+#define HOSTNAME "esp8266-dht22-wifi-sensor"
+
+#define WIFI_SSID "<your wifi ssid>"
+#define WIFI_PASS "<your wifi password>"
+
+#define APP_NAME "ESP8266 DHT22 WiFi Sensor"
+#define APP_VERSION "1.0.7"
+
+#define INFLUX_DB_URL "http://influxdb.local:8086/write?db=weatherdb"
+
+#endif
