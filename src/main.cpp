@@ -42,10 +42,13 @@ void setup()
   Serial.begin(74880);
   pinMode(D0, WAKEUP_PULLUP);
   dht.begin();
+
+#ifdef DEBUG_ENABLED
   Serial.println();
   Serial.println();
   Serial.println(APP_NAME " - " APP_VERSION);
   Serial.println("BUILD: " __DATE__ " " __TIME__);
+#endif
 
   watchdogCounter = 0;
   watchdogTicker.attach(1, ISRwatchdog);
@@ -61,10 +64,14 @@ void setup()
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(100);
+#ifdef DEBUG_ENABLED
     Serial.print(".");
+#endif
   }
 
+#ifdef DEBUG_ENABLED
   Serial.println(F("\nWiFi connected"));
+#endif
 
   do
   {
@@ -73,9 +80,11 @@ void setup()
     t = dht.readTemperature();
   } while (isnan(h) || isnan(t));
 
+#ifdef DEBUG_ENABLED
   Serial.printf(
       "Humidity: %0.01f%% -- Temperature: %0.01f*C -- Battery: %0.02f\n", h, t,
       get_vbattery());
+#endif
 
   char buffer[256];
 
@@ -95,7 +104,10 @@ void setup()
   }
   httpClient.end();
 
+#ifdef DEBUG_ENABLED
   Serial.println("\ndeep sleep ... ");
+#endif
+
   //  ESP.deepSleep( 120l * 1000000l);
   ESP.deepSleep(10l * 1000000l);
   delay(500);
